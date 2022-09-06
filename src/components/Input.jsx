@@ -13,6 +13,7 @@ import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import ImageIcon from "@mui/icons-material/Image";
 import SendIcon from "@mui/icons-material/Send";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const Input = () => {
   const [text, setText] = useState("");
@@ -73,6 +74,7 @@ const Input = () => {
     setText("");
     setImg(null);
   };
+
   return (
     <div className="input">
       <input
@@ -88,13 +90,25 @@ const Input = () => {
           id="file"
           onChange={(e) => setImg(e.target.files[0])}
         />
-        {/* {img && <img src={img} alt="" />} */}
-        <label
-          style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
-          htmlFor="file"
-        >
-          <ImageIcon />
-        </label>
+        {img ? (
+          <>
+            <DeleteIcon
+              onClick={() => setImg(null)}
+              sx={{ cursor: "pointer", color: "red" }}
+            />
+            <label style={{ fontSize: "10px" }}>
+              {img.name.slice(0, 10) + "..."}
+            </label>
+          </>
+        ) : (
+          <label
+            style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+            htmlFor="file"
+          >
+            <ImageIcon />
+          </label>
+        )}
+
         <button onClick={handleSend}>
           <SendIcon />
           Send

@@ -15,16 +15,6 @@ const Message = ({ message }) => {
 
   const timestamp = message.date.seconds;
   const date = new Date(timestamp * 1000);
-  const datevalues = [
-    date.getFullYear(),
-    date.getMonth() + 1,
-    date.getDate(),
-    date.getHours(),
-    date.getMinutes(),
-    date.getSeconds(),
-  ];
-
-  console.log("datevalues", datevalues);
 
   const time = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 
