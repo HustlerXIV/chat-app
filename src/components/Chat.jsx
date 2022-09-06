@@ -9,7 +9,11 @@ export default function Chat() {
   return (
     <div className="chat">
       <div className="chatInfo">
-        <span>{data.user?.displayName}</span>
+        <span>
+          {data.user.displayName
+            ? data.user?.displayName
+            : "Please select who you want to chat with"}
+        </span>
       </div>
       <Messages />
       <Input />

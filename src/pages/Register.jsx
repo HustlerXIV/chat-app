@@ -25,35 +25,42 @@ export const Register = () => {
 
     try {
       setLoading(true);
-      const res = await createUserWithEmailAndPassword(auth, email, password);
+      const res = await createUserWithEmailAndPassword(auth, email, password)
+        .then(function (data) {
+          const storageRef = ref(storage, displayName);
 
-      const storageRef = ref(storage, displayName);
+          const uploadTask = uploadBytesResumable(storageRef, file);
 
-      const uploadTask = uploadBytesResumable(storageRef, file);
+          uploadTask.on(
+            (error) => {
+              setErr(true);
+            },
+            () => {
+              getDownloadURL(uploadTask.snapshot.ref).then(
+                async (downloadURL) => {
+                  await updateProfile(res.user, {
+                    displayName,
+                    photoURL: downloadURL,
+                  });
+                  await setDoc(doc(db, "users", res.user.uid), {
+                    uid: res.user.uid,
+                    displayName,
+                    email,
+                    photoURL: downloadURL,
+                  });
 
-      uploadTask.on(
-        (error) => {
+                  await setDoc(doc(db, "userChats", res.user.uid), {});
+                  setLoading(false);
+                  navigate("/");
+                }
+              );
+            }
+          );
+        })
+        .catch(function (error) {
+          setLoading(false);
           setErr(true);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            await updateProfile(res.user, {
-              displayName,
-              photoURL: downloadURL,
-            });
-            await setDoc(doc(db, "users", res.user.uid), {
-              uid: res.user.uid,
-              displayName,
-              email,
-              photoURL: downloadURL,
-            });
-
-            await setDoc(doc(db, "userChats", res.user.uid), {});
-            setLoading(false);
-            navigate("/");
-          });
-        }
-      );
+        });
     } catch (err) {
       setErr(true);
     }
@@ -95,10 +102,10 @@ export const Register = () => {
               )}
             </div>
             <button>Sign Up </button>
-            {err && <span>Something went wrong!</span>}
+            {err && <span className="alertError">Something went wrong!</span>}
           </form>
           <p>
-            You have an account? <Link to="/login">Login</Link>
+            Already have an account? <Link to="/login">Sign In</Link>
           </p>
         </div>
       </div>

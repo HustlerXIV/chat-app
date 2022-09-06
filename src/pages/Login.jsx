@@ -17,10 +17,18 @@ export const Login = () => {
 
     try {
       setLoading(true);
-      signInWithEmailAndPassword(auth, email, password);
-      navigate("/");
+      signInWithEmailAndPassword(auth, email, password)
+        .then(function (data) {
+          navigate("/");
+        })
+        .catch(function (error) {
+          setLoading(false);
+          setErr(true);
+        });
     } catch (err) {
+      console.log("err", err);
       setErr(true);
+      setLoading(false);
     }
   };
   return (
@@ -34,7 +42,7 @@ export const Login = () => {
             <Email type="email" placeholder="email" required />
             <input type="password" placeholder="password" required />
             <button>Sign In</button>
-            {err && <span>Something went wrong!</span>}
+            {err && <span className="alertError">Something went wrong!</span>}
           </form>
 
           <p>
@@ -50,6 +58,6 @@ const Email = styled.input`
   width: 400px;
 
   @media (max-width: 576px) {
-    width: 200px;
+    width: 250px;
   }
 `;

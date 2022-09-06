@@ -24,6 +24,11 @@ $subColor: #018abe;
 $lightColor: #a3c6ff;
 $whiteColor: #d6e8ee;
 
+.alertError {
+  color: darkred;
+  margin: 0px auto;
+}
+
 .formContainer {
   background-color: $mainColor;
   height: 100vh;
@@ -39,6 +44,10 @@ $whiteColor: #d6e8ee;
     flex-direction: column;
     gap: 10px;
     align-items: center;
+
+    @include mobile() {
+      padding: 20px 40px;
+    }
 
     .logo {
       color: $secondColor;
@@ -219,6 +228,10 @@ $whiteColor: #d6e8ee;
       justify-content: space-between;
       padding: 10px;
       color: lightgray;
+
+      @include mobile() {
+        height: 30px;
+      }
     }
 
     .chatIcons {
@@ -237,6 +250,9 @@ $whiteColor: #d6e8ee;
       height: calc(100% - 160px);
       overflow: scroll;
 
+      @include mobile() {
+        height: calc(100% - 140px);
+      }
       .message {
         display: flex;
         gap: 20px;
@@ -315,6 +331,9 @@ $whiteColor: #d6e8ee;
         &::placeholder {
           color: lightgray;
         }
+        &:disabled {
+          cursor: not-allowed;
+        }
       }
 
       .send {
@@ -336,6 +355,12 @@ $whiteColor: #d6e8ee;
           display: flex;
           align-items: center;
           gap: 10px;
+
+          &:disabled {
+            cursor: not-allowed;
+            background-color: lightgray;
+            color: gray;
+          }
         }
       }
     }

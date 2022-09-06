@@ -30,6 +30,7 @@ const Chats = () => {
 
   return (
     <div className="chats">
+      <p style={{ color: "#fff", margin: "10px 0px 0px 10px" }}>Chat lists</p>
       {Object.entries(chats)
         ?.sort((a, b) => b[1].date - a[1].date)
         .map((chat) => (

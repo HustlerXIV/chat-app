@@ -14,10 +14,12 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import ImageIcon from "@mui/icons-material/Image";
 import SendIcon from "@mui/icons-material/Send";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ReactLoading from "react-loading";
 
 const Input = () => {
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
@@ -27,12 +29,10 @@ const Input = () => {
       const storageRef = ref(storage, uuid());
 
       const uploadTask = uploadBytesResumable(storageRef, img);
-
       uploadTask.on(
-        (error) => {
-          //TODO:Handle Error
-        },
+        (error) => {},
         () => {
+          setLoading(true);
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
             await updateDoc(doc(db, "chats", data.chatId), {
               messages: arrayUnion({
@@ -44,9 +44,11 @@ const Input = () => {
               }),
             });
           });
+          setLoading(false);
         }
       );
     } else {
+      setLoading(true);
       await updateDoc(doc(db, "chats", data.chatId), {
         messages: arrayUnion({
           id: uuid(),
@@ -55,7 +57,11 @@ const Input = () => {
           date: Timestamp.now(),
         }),
       });
+      setLoading(false);
     }
+
+    setText("");
+    setImg(null);
 
     await updateDoc(doc(db, "userChats", currentUser.uid), {
       [data.chatId + ".lastMessage"]: {
@@ -70,16 +76,17 @@ const Input = () => {
       },
       [data.chatId + ".date"]: serverTimestamp(),
     });
-
-    setText("");
-    setImg(null);
   };
 
   return (
     <div className="input">
       <input
         type="text"
-        placeholder="Type something..."
+        placeholder={
+          data.chatId !== "null"
+            ? "Type something..."
+            : "Please select who you want to chat with"
+        }
         onChange={(e) => setText(e.target.value)}
         value={text}
       />
@@ -109,8 +116,20 @@ const Input = () => {
           </label>
         )}
 
-        <button onClick={handleSend}>
-          <SendIcon />
+        <button
+          onClick={handleSend}
+          disabled={data.chatId === "null" ? true : false}
+        >
+          {loading ? (
+            <ReactLoading
+              type="spin"
+              color="#fff"
+              height={"23px"}
+              width={"23px"}
+            />
+          ) : (
+            <SendIcon />
+          )}
           Send
         </button>
       </div>
