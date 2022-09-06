@@ -16,7 +16,13 @@
   }
 }
 
-$darkColor: #2f2d52;
+$darkColor: #001b48;
+$secondColor: #113977;
+$thirdColor: #133263;
+$mainColor: #02457a;
+$subColor: #018abe;
+$lightColor: #a3c6ff;
+$whiteColor: #d6e8ee;
 
 .formContainer {
   background-color: #a7bcff;
@@ -85,14 +91,14 @@ $darkColor: #2f2d52;
 }
 
 .home {
-  background-color: #a7bcff;
+  background-color: $mainColor;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
 
   .container {
-    border: 1px solid white;
+    border: 2px solid $darkColor;
     border-radius: 10px;
     width: 65%;
     height: 80%;
@@ -105,21 +111,21 @@ $darkColor: #2f2d52;
 
   .sidebar {
     flex: 1;
-    background-color: #3e3c61;
+    background-color: $thirdColor;
     position: relative;
 
     .navbar {
       display: flex;
       align-items: center;
-      background-color: #2f2d52;
+      background-color: $darkColor;
       height: 50px;
       padding: 10px;
       justify-content: space-between;
-      color: #ddddf7;
+      color: white;
 
       .logo {
         font-weight: bold;
-        @include tablet {
+        @include laptop {
           display: none;
         }
       }
@@ -137,8 +143,8 @@ $darkColor: #2f2d52;
         }
 
         button {
-          background-color: #5d5b8b;
-          color: #ddddf7;
+          background-color: $lightColor;
+          color: $darkColor;
           font-size: 10px;
           border: none;
           cursor: pointer;
@@ -177,7 +183,7 @@ $darkColor: #2f2d52;
       cursor: pointer;
 
       &:hover {
-        background-color: #2f2d52;
+        background-color: $darkColor;
       }
       img {
         width: 50px;
@@ -203,7 +209,7 @@ $darkColor: #2f2d52;
     flex: 2;
     .chatInfo {
       height: 50px;
-      background-color: #5d5d8b;
+      background-color: $secondColor;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -222,7 +228,7 @@ $darkColor: #2f2d52;
     }
 
     .messages {
-      background-color: #ddddf7;
+      background-color: $lightColor;
       padding: 10px;
       height: calc(100% - 160px);
       overflow: scroll;
@@ -236,6 +242,7 @@ $darkColor: #2f2d52;
           display: flex;
           flex-direction: column;
           color: gray;
+          justify-content: flex-start;
           font-weight: 300;
           img {
             width: 40px;
@@ -249,6 +256,7 @@ $darkColor: #2f2d52;
           max-width: 80%;
           display: flex;
           flex-direction: column;
+          justify-content: center;
           gap: 10px;
           p {
             background-color: white;
@@ -259,16 +267,27 @@ $darkColor: #2f2d52;
           img {
             width: 50%;
           }
+          .imgSend {
+            width: 200px;
+          }
         }
         &.owner {
           flex-direction: row-reverse;
+          .messageInfo {
+            justify-content: flex-start;
+          }
           .messageContent {
             align-items: flex-end;
+            justify-content: center;
+          }
+          img {
+            margin-left: auto;
           }
           p {
-            background-color: #8da4f1;
+            background-color: $secondColor;
             color: white;
             border-radius: 10px 0px 10px 10px;
+            width: auto;
           }
         }
       }
@@ -310,6 +329,9 @@ $darkColor: #2f2d52;
           color: white;
           background-color: #8da4f1;
           cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 10px;
         }
       }
     }

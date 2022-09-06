@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Upload from "../img/upload.png";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 

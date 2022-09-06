@@ -7,7 +7,7 @@ export default function Navbar() {
   const { currentUser } = useContext(AuthContext);
   return (
     <div className="navbar">
-      <span className="logo">Tang Chat</span>
+      <span className="logo">Napat Chat</span>
       <div className="user">
         <img src={currentUser.photoURL} alt="" />
         <span>{currentUser.displayName}</span>
