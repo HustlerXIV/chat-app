@@ -15,14 +15,17 @@ export const AuthContextProvider = ({ children }) => {
     const returnToLogin = () => {
       window.location.href = "/login";
     };
-
     return () => {
-      if (auth.currentUser === null) {
-        returnToLogin();
-      } else {
-        unsub();
-      }
+      unsub();
     };
+
+    // return () => {
+    //   if (auth.currentUser === null) {
+    //     returnToLogin();
+    //   } else {
+    //     unsub();
+    //   }
+    // };
   }, []);
 
   return (
