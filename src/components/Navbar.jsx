@@ -16,8 +16,8 @@ export default function Navbar() {
     <div className="navbar">
       <span className="logo">Napat Chat</span>
       <div className="user">
-        <img src={currentUser.photoURL} alt="" />
-        <span>{currentUser.displayName}</span>
+        <img src={currentUser?.photoURL} alt="" />
+        <span>{currentUser?.displayName}</span>
         <button onClick={handleSignOut}>Logout</button>
       </div>
     </div>

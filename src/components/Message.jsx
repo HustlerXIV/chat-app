@@ -26,7 +26,7 @@ const Message = ({ message }) => {
       <div className="messageInfo owner">
         <img
           src={
-            message.senderId === currentUser.uid
+            message.senderId === currentUser?.uid
               ? currentUser.photoURL
               : data.user.photoURL
           }
@@ -37,8 +37,8 @@ const Message = ({ message }) => {
       </div>
       <div className="messageContent">
         <p>
-          {message.text}
-          {message.img && <ModalImage src={message.img} />}
+          {message?.text}
+          {message.img && <ModalImage src={message?.img} />}
         </p>
       </div>
     </div>

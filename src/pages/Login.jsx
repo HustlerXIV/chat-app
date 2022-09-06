@@ -18,8 +18,6 @@ export const Login = () => {
     try {
       setLoading(true);
       signInWithEmailAndPassword(auth, email, password);
-      setLoading(false);
-
       navigate("/");
     } catch (err) {
       setErr(true);

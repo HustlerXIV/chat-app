@@ -157,11 +157,15 @@ $whiteColor: #d6e8ee;
 
       .searchForm {
         padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         input {
           background-color: transparent;
           border: none;
           color: white;
           outline: none;
+          width: auto;
 
           &::placeholder {
             color: lightgray;

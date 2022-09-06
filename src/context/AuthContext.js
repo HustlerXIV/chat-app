@@ -12,8 +12,16 @@ export const AuthContextProvider = ({ children }) => {
       setCurrentUser(user);
     });
 
+    const returnToLogin = () => {
+      window.location.href = "/login";
+    };
+
     return () => {
-      unsub();
+      if (auth.currentUser === null) {
+        returnToLogin();
+      } else {
+        unsub();
+      }
     };
   }, []);
 
